@@ -31,11 +31,22 @@ def main():
         pass
 
 
-
-
 def get_fixed_filename(filename):
     """Return a 'fixed' version of filename."""
-    new_name = filename.replace(" ", "_").replace(".TXT", ".txt")
+    filename.title()
+    previous = ''
+
+    if ' ' in filename:
+        new_name = filename.replace(" ", "_").replace(".TXT", ".txt")
+
+    new_name = ''
+    for i in filename:
+        if i.isupper() and previous.islower():
+            new_name += '_'
+        else:
+            new_name += i
+        print(new_name)
+        previous = i
     return new_name
 
 
@@ -49,8 +60,8 @@ def demo_walk():
         print("(Current working directory is: {})".format(os.getcwd()))
 
     for filename in filenames:
-        new_name = get_fixed_filename()
         full_name = os.path.join(directory_name, filename)
+        new_name = get_fixed_filename(full_name)
         print(new_name)
 
 
